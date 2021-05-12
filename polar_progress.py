@@ -65,7 +65,7 @@ def query_yearly_stats(session, year):
     params = {
         "from": "01-01-{}".format(year),
         "to": "{:02}-{:02}-{}".format(now.day, now.month, year),
-        "sport":["RUNNING"],
+        "sport":["TRAIL_RUNNING"],
         "barType":"distance",
         "group":"week",
         "report":"time",
