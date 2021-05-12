@@ -96,9 +96,10 @@ def write_summary(target, results):
         results["achieved_distance_km"] / day_of_year))
     current_target_km = daily_target * day_of_year
     print("Expected distance to date: {:.1f} km".format(current_target_km))
-    print("Achieved distance: {:.1f} km or {:.1f}% of target".format(
-        results["achieved_distance_km"],
-        100.0 * results["achieved_distance_km"] / target))
+    print("Achieved distance: {:.1f} km or {:.1f}%".format(results["achieved_distance_km"],
+                                                           100.0 * results["achieved_distance_km"] / target))
+    print("You still have {:.1f} km to run".format(target - results["achieved_distance_km"]))
+
     if results["achieved_distance_km"] > current_target_km:
         print("You are {:.1f} km or {:.1f} days ahead of schedule".format(
             results["achieved_distance_km"] - current_target_km,
