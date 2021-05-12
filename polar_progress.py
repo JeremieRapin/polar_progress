@@ -79,8 +79,10 @@ def query_yearly_stats(session, year):
 
     resp = session.post(FLOW_GETREPORT_URL, json=params, headers=headers)
 
-    summary = resp.json()
-    return summary
+    if resp.status_code != 200:
+        resp.raise_for_status()
+
+    return resp.json()
 
 def write_summary(target, results):
     """
