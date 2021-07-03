@@ -90,6 +90,7 @@ def write_summary(target, results):
     print("Target: {:d} km".format(target))
     daily_target = target / 365.
     print("Daily target: {:.2f} km/day".format(daily_target))
+    print("Weekly target: {:.2f} km/week".format(daily_target * 7))
     day_of_year = datetime.datetime.now().timetuple().tm_yday
     print("Effective daily average: {:.2f} km/day".format(
         results["achieved_distance_km"] / day_of_year))
