@@ -117,6 +117,10 @@ def write_summary(target, results):
         results["prev_achieved_distance_km"],
         results["prev_num_sessions"]
         ))
+    if results["achieved_distance_km"] > results["prev_achieved_distance_km"]:
+        print("You ran {:.1f} kilometers more than last year".format(results["achieved_distance_km"] - results["prev_achieved_distance_km"]))
+    else:
+        print("You ran {:.1f} kilometers less than last year".format(results["prev_achieved_distance_km"] - results["achieved_distance_km"]))
     print("Extrapolated result: {:.1f} km at the end of the year".format(
         365. * results["achieved_distance_km"] / day_of_year))
 
