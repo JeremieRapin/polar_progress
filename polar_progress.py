@@ -131,7 +131,7 @@ def write_summary(target, results):
     print("Achieved distance: {:.1f} km or {:.1f}%".format(results["achieved_distance_km"],
                                                            100.0 * results["achieved_distance_km"] / target))
     print("You still have {:.1f} km to run".format(target - results["achieved_distance_km"]))
-
+    print("Achieved month distance: {:.1f} km".format(results["achieved_current_month_distance_km"]))
     if results["achieved_distance_km"] > current_target_km:
         print("You are {:.1f} km or {:.1f} days ahead of schedule".format(
             results["achieved_distance_km"] - current_target_km,
@@ -171,6 +171,7 @@ def main():
     session = login(settings["login"], settings["password"])
     year_stats = query_yearly_stats(session, datetime.datetime.now().year)
     prev_year_stats = query_yearly_stats(session, datetime.datetime.now().year - 1)
+    month_stats = query_monthly_stats(session)
 
     res = {
         "achieved_distance_km" :
@@ -180,7 +181,9 @@ def main():
         "prev_achieved_distance_km" :
         prev_year_stats["progressContainer"]["trainingReportSummary"]["totalDistance"] / 1000.,
         "prev_num_sessions":
-        prev_year_stats["progressContainer"]["trainingReportSummary"]["totalTrainingSessionCount"]
+        prev_year_stats["progressContainer"]["trainingReportSummary"]["totalTrainingSessionCount"],
+        "achieved_current_month_distance_km" :
+        month_stats["progressContainer"]["trainingReportSummary"]["totalDistance"] / 1000.,
     }
     write_summary(settings["goal"], res)
 
