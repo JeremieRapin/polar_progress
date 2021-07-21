@@ -93,6 +93,27 @@ def query_yearly_stats(session, year):
 
     return do_query(session, params)
 
+def query_monthly_stats(session):
+    """
+    Users an active requests session to query
+    the monthly stats for a given month.
+    Returns the JSON information received from
+    Polar flow on success.
+    """
+    now = datetime.datetime.now()
+    params = {
+        "from": "01-{:02}-{}".format(now.month, now.year),
+        "to": "{:02}-{:02}-{}".format(now.day, now.month, now.year),
+        "sport":["TRAIL_RUNNING"],
+        "barType":"distance",
+        "group":"day",
+        "report":"custom",
+        "reportSubtype":"training",
+        "timeFrame":"month"
+    }
+
+    return do_query(session, params)
+
 def write_summary(target, results):
     """
     Given the target for the current year and the achieved
