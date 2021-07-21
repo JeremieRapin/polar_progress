@@ -54,6 +54,24 @@ def login(username, password):
 
     return session
 
+def do_query(session, params):
+    """
+    Do a query relative to params
+    Returns the JSON information received from
+    Polar flow on success.
+    """
+
+    headers = {
+        "x-requested-with": "XMLHttpRequest",
+    }
+
+    resp = session.post(FLOW_GETREPORT_URL, json=params, headers=headers)
+
+    if resp.status_code != 200:
+        resp.raise_for_status()
+
+    return resp.json()
+
 def query_yearly_stats(session, year):
     """
     Users an active requests session to query
@@ -73,16 +91,7 @@ def query_yearly_stats(session, year):
         "timeFrame":"year"
     }
 
-    headers = {
-        "x-requested-with": "XMLHttpRequest",
-    }
-
-    resp = session.post(FLOW_GETREPORT_URL, json=params, headers=headers)
-
-    if resp.status_code != 200:
-        resp.raise_for_status()
-
-    return resp.json()
+    return do_query(session, params)
 
 def write_summary(target, results):
     """
